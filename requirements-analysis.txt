@@ -1,0 +1,10 @@
+# Observed imports; unpinned and not a validated environment
+numpy
+pandas
+scipy
+matplotlib
+seaborn
+pyBigWig
+gseapy
+reportlab
+statsmodels
