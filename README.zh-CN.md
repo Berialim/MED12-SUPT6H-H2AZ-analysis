@@ -22,13 +22,10 @@
 | `archive/mouse/` | 小鼠 RNA-seq 差异分析 |
 | `archive/mRNAseq/` | H2A.Z 与 RNA-seq 整合 |
 | `archive/med12_disease/` | 外部数据集比较 |
-| `archive/ratio/` | Metagene 可视化工具 |
-| `notebooks/` | 已清除保存输出的 notebook |
-| `scripts/` | Notebook 的纯代码导出 |
 | `docs/` | 输入要求、已知问题及验证记录 |
 | `SOURCE_MANIFEST.tsv` | 原始来源及 SHA-256 校验值 |
 
-`archive/` 保留原始脚本，具体来源见校验清单。
+分析脚本位于 `archive/`。MNase 模块已转换为 Python，其余保留脚本的内容与原始来源一致，具体见校验清单。
 
 ## 环境要求
 
@@ -81,7 +78,7 @@ python archive/pro/plot_pauseindex_h2az_boxplot.py /path/to/pauseindex.tsv \
 - [验证记录](docs/VALIDATION.md)
 - [来源校验清单](SOURCE_MANIFEST.tsv)
 
-已检查来源文件完整性、Python 语法及 notebook JSON 格式，尚未重跑科学分析。归档暂停指数脚本的链方向处理和 MNase notebook 的分组导出存在已记录问题，解释结果前应先阅读相关说明。
+已检查来源文件完整性、Python 语法，尚未重跑科学分析。归档暂停指数脚本的链方向处理和 MNase Python 脚本 的分组导出存在已记录问题，解释结果前应先阅读相关说明。
 
 ## 引用
 
@@ -92,3 +89,5 @@ python archive/pro/plot_pauseindex_h2az_boxplot.py /path/to/pauseindex.tsv \
 ## 许可证
 
 当前尚未指定许可证，代码使用许可待作者确定。
+
+MNase 运行方式：`python archive/MNase/mnase_stability.py /path/to/working_directory`。

@@ -18,21 +18,16 @@ archive/
 ├── CHIP-SEQ/           # ChIP-seq annotation and regional signals
 ├── pro/                # PRO-seq pausing analysis
 ├── TT/                 # TT-seq analysis and metagene preparation
-├── MNase/              # Nucleosome positional analysis
+├── MNase/              # Nucleosome positional analysis (Python)
 ├── mouse/              # Mouse RNA-seq differential analysis
 ├── mRNAseq/            # H2A.Z and RNA-seq integration
-├── med12_disease/      # External dataset comparisons
-├── ratio/              # Metagene visualization utilities
-├── chipseq_se.sh       # Legacy ChIP-seq processing helper
-└── spikein.sh          # Spike-in alignment helper
-notebooks/              # Notebook with saved outputs cleared
-scripts/                # Code-only notebook export
+└── med12_disease/      # External dataset comparisons
 docs/                  # Input requirements, known issues, and validation
 SOURCE_MANIFEST.tsv     # Original source locations and SHA-256 checksums
 requirements-analysis.txt
 ```
 
-Original scripts are preserved under `archive/`. See the source manifest for file provenance.
+Analysis scripts are organized under `archive/`. The MNase module is a Python conversion; other retained scripts preserve their source content. See the source manifest for provenance.
 
 ## Requirements
 
@@ -89,7 +84,7 @@ Raw sequencing data, reference genomes, proteomics input tables, and gene-set co
 - [Validation report](docs/VALIDATION.md)
 - [Source manifest](SOURCE_MANIFEST.tsv)
 
-Checks cover source-file integrity, Python syntax, and notebook JSON structure. Scientific analyses have not been rerun. Known issues include strand handling in the archived pausing calculation and inconsistent grouping in the MNase notebook; review the linked documentation before interpreting outputs.
+Checks cover source-file integrity and Python syntax. Scientific analyses have not been rerun. Known issues include strand handling in the archived pausing calculation and inconsistent grouping in the MNase Python script; review the linked documentation before interpreting outputs.
 
 ## Citation
 
@@ -100,3 +95,5 @@ Final publication details and a DOI will be added when available.
 ## License
 
 No license has been assigned. A reuse license remains to be specified by the authors.
+
+MNase usage: `python archive/MNase/mnase_stability.py /path/to/working_directory`.

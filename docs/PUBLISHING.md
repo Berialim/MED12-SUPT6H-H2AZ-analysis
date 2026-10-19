@@ -2,7 +2,7 @@
 
 Remote repository: https://github.com/Berialim/MED12-SUPT6H-H2AZ-analysis. Upload preserves the existing main-branch history and repository visibility.
 
-Before a public release, confirm the intended visibility and select an appropriate license. Review original notebook outputs (the byte-identical notebook remains in `archive/MNase/`; a cleared version is in `notebooks/`) and source comments/paths. Do not upload the manuscript, raw sequencing files, unpublished input tables or credentials by default.
+Before a public release, confirm the intended visibility and select an appropriate license. Review source comments and configured paths before a public release. Do not upload the manuscript, raw sequencing files, unpublished input tables or credentials by default.
 
 Suggested repository name: `MED12-SUPT6H-H2AZ-analysis`.
 
