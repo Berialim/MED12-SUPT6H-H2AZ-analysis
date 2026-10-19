@@ -1,42 +1,102 @@
-# MED12 SUPT6H H2A.Z analysis
+# MED12–SUPT6H–H2A.Z Analysis
 
-Code collection supporting the manuscript **MED12 recruits SUPT6H to H2A.Z nucleosomes for pause release** (manuscript dated 17 October 2026).
+Analysis scripts for investigating the MED12–SUPT6H axis, H2A.Z-associated chromatin organization, transcriptional pause release, and gene expression.
 
-This repository organizes existing local analysis scripts for APEX proteomics, ChIP-seq, PRO-seq, TT-seq, MNase-seq and mouse liver RNA-seq. It is a partial analysis-code archive, not a validated end-to-end reproduction of the manuscript. Figure associations are candidates established from code content and manuscript methods; final figure-generation provenance has not been established.
+[中文说明](README.zh-CN.md)
 
-## Analysis modules
+## Overview
 
-| Module | Manuscript relationship | Location |
-| --- | --- | --- |
-| APEX proteomics | Fig. 1 and Supplementary Fig. 1 candidates | `archive/MS/` |
-| ChIP-seq processing and annotation | Fig. 2 and Supplementary Fig. 2 candidates | `archive/CHIP-SEQ/`, `archive/chipseq_se.sh`, `archive/spikein.sh` |
-| PRO-seq pausing | Fig. 3b–c and Fig. 4i candidates | `archive/pro/` |
-| TT-seq differential transcription | Fig. 3g–h and Fig. 4j candidates | `archive/TT/` |
-| MNase positional stability | Supplementary Fig. 5c candidate | `notebooks/`, `archive/MNase/` |
-| Metagene visualization | Supporting plotting utility | `archive/ratio/` |
-| Mouse RNA-seq and H2A.Z integration | Fig. 6 and Supplementary Fig. 7 candidates | `archive/mouse/`, `archive/mRNAseq/` |
-| External MED12 comparison | Supplementary Fig. 7 candidate | `archive/med12_disease/` |
+This repository brings together scripts for APEX proteomics, ChIP-seq, PRO-seq, TT-seq, MNase-seq, and mouse liver RNA-seq. It includes differential analysis, genomic signal quantification, pathway enrichment, and integration of chromatin occupancy with transcriptional responses.
 
-## Start here
+The repository currently provides a curated collection of existing scripts. Some require local path configuration and external input files; a complete end-to-end workflow has not been validated.
 
-1. Read [known issues](docs/KNOWN_ISSUES.md) before executing archived code.
-2. Consult [inputs and execution](docs/INPUTS_AND_EXECUTION.md) and restore required data/reference files.
-3. Use `SOURCE_MANIFEST.tsv` for source locations and SHA-256 checksums. All files under `archive/` are byte-identical source copies.
-4. Inspect [validation](docs/VALIDATION.md) for what has and has not been checked.
+## Repository structure
 
-Two plotting scripts already accept explicit inputs (run from repository root after preparing data and dependencies):
-
-```bash
-python archive/TT/plot_h2az_boxplot.py /path/to/results.txt --density /path/to/density.bed -o /path/to/tt_h2az.pdf
-python archive/pro/plot_pauseindex_h2az_boxplot.py /path/to/pauseindex.tsv --density /path/to/density.bed --ctrl-pause CTRL_pause --kd-pause KD_pause -o /path/to/pro_h2az.pdf
+```text
+archive/
+├── MS/                 # APEX proteomics
+├── CHIP-SEQ/           # ChIP-seq annotation and regional signals
+├── pro/                # PRO-seq pausing analysis
+├── TT/                 # TT-seq analysis and metagene preparation
+├── MNase/              # Nucleosome positional analysis
+├── mouse/              # Mouse RNA-seq differential analysis
+├── mRNAseq/            # H2A.Z and RNA-seq integration
+├── med12_disease/      # External dataset comparisons
+├── ratio/              # Metagene visualization utilities
+├── chipseq_se.sh       # Legacy ChIP-seq processing helper
+└── spikein.sh          # Spike-in alignment helper
+notebooks/              # Notebook with saved outputs cleared
+scripts/                # Code-only notebook export
+docs/                  # Input requirements, known issues, and validation
+SOURCE_MANIFEST.tsv     # Original source locations and SHA-256 checksums
+requirements-analysis.txt
 ```
 
-These commands are usage examples, not evidence of successful reproduction. Arial is required by these plotting scripts. Archived scripts retain original paths and assumptions. No script runs automatically.
+Original scripts are preserved under `archive/`. See the source manifest for file provenance.
+
+## Requirements
+
+- Python and the packages listed in `requirements-analysis.txt`.
+- R with module-specific packages, including DESeq2, tidyverse, clusterProfiler, and ChIPseeker where applicable.
+- Linux or WSL for shell workflows and their external sequencing tools.
+- Compatible genome annotations, input tables, and sequencing coverage files.
+- Arial for plotting scripts that explicitly require it.
+
+See [input requirements and execution notes](docs/INPUTS_AND_EXECUTION.md) for module-specific dependencies. The dependency list is not a tested environment lockfile.
+
+## Getting started
+
+Clone the repository and install Python dependencies in a dedicated environment:
+
+```bash
+git clone https://github.com/Berialim/MED12-SUPT6H-H2AZ-analysis.git
+cd MED12-SUPT6H-H2AZ-analysis
+python -m venv .venv
+# Activate .venv using the command appropriate for your shell.
+python -m pip install -r requirements-analysis.txt
+```
+
+Select the relevant analysis module, prepare its required inputs, and review file paths and parameters before execution. R packages and command-line tools must be installed separately for the modules that use them.
+
+## Usage
+
+The following scripts accept explicit input paths:
+
+```bash
+python archive/TT/plot_h2az_boxplot.py /path/to/results.txt \
+  --density /path/to/density.bed -o /path/to/tt_h2az.pdf
+
+python archive/pro/plot_pauseindex_h2az_boxplot.py /path/to/pauseindex.tsv \
+  --density /path/to/density.bed \
+  --ctrl-pause CTRL_pause --kd-pause KD_pause \
+  -o /path/to/pro_h2az.pdf
+```
+
+The density input uses column 4 for gene identifiers and column 7 for H2A.Z signal by default. The PRO-seq plotting input must contain a `gene` column and the specified pause-index columns. These examples visualize prepared results; they do not run raw-read processing.
+
+Other archived scripts may contain fixed paths or working-directory assumptions. Inspect them before use and run processing scripts on working copies of data.
 
 ## Data availability
 
-The manuscript lists GEO accessions GSE325384, GSE325382, GSE325378 and GSE325610. Their public availability and assay-to-accession mapping were not independently checked. Sequencing files, manuscript text, proteomics tables, patient-level data and reference gene sets are not bundled.
+The associated manuscript lists GEO accessions **GSE325384**, **GSE325382**, **GSE325378**, and **GSE325610**. Public availability and the mapping between accessions and assays have not been independently verified here.
 
-## License and citation
+Raw sequencing data, reference genomes, proteomics input tables, and gene-set collections are not included in this repository.
 
-No redistribution license is assigned by this archive. The authors must choose a license and confirm rights before public release. Cite the manuscript using its final publication metadata when available; no DOI is asserted here.
+## Documentation and validation
+
+- [Inputs and execution](docs/INPUTS_AND_EXECUTION.md)
+- [Known issues and limitations](docs/KNOWN_ISSUES.md)
+- [Validation report](docs/VALIDATION.md)
+- [Source manifest](SOURCE_MANIFEST.tsv)
+
+Checks cover source-file integrity, Python syntax, and notebook JSON structure. Scientific analyses have not been rerun. Known issues include strand handling in the archived pausing calculation and inconsistent grouping in the MNase notebook; review the linked documentation before interpreting outputs.
+
+## Citation
+
+Associated manuscript: *MED12 recruits SUPT6H to H2A.Z nucleosomes for pause release*.
+
+Final publication details and a DOI will be added when available.
+
+## License
+
+No license has been assigned. A reuse license remains to be specified by the authors.
